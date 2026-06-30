@@ -1,16 +1,361 @@
-/* Здесь вы напишете основную часть стилей страницы.
-
-Будьте внимательны! Для корректной работы скриптов на этом сайте нужно, чтобы в HTML некоторые классы были названы особым образом:
-✦ like-icon — для svg-иконки анимированного сердца
-✦ card__like-button — для кнопки Like рядом с иконкой
-✦ card__icon-button — для кнопки, оборачивающей иконку
-✦ card__icon-button — для кнопки, оборачивающей иконку
-✦ is-liked — для обозначения состояния лайкнутой иконки в виде сердца
-✦ button__text — для обозначения текстового элемента внутри кнопки
-
-*/
-
 .page {
   min-inline-size: 320px;
   min-block-size: 100dvb;
+  overflow-x: hidden;
+
+  color: var(--accent-color);
+  font-family: var(--main-font), Arial, sans-serif;
+  font-variation-settings: "wght" var(--main-font-weight);
+
+  background-color: var(--background-color);
+  background-image: var(--page-background-image);
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+
+  inline-size: var(--content-width);
+  min-block-size: 368px;
+  margin: 100px auto 0;
+  padding: 25px;
+
+  background-color: var(--background-color);
+  border: 2px solid var(--accent-color);
+  text-align: center;
+}
+
+.header__title {
+  font-family: var(--accent-font), fantasy;
+  font-size: clamp(3.0625rem, 2.712rem + 1.5vw, 4.0625rem);
+  font-weight: 400;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.header__subtitle {
+  font-family: var(--accent-font), fantasy;
+  font-size: clamp(0.875rem, 0.625rem + 1vw, 1.4375rem);
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.content {
+  inline-size: var(--content-width);
+  margin: 100px auto 0;
+}
+
+.card-list {
+  display: grid;
+  gap: 50px;
+}
+
+.card {
+  inline-size: 100%;
+}
+
+.card__title {
+  padding: 5px 10px;
+
+  background-color: var(--background-color);
+  border: 2px solid var(--accent-color);
+
+  font-size: 18px;
+  font-variation-settings: "wght" var(--card-title-font-weight);
+  line-height: 1.2;
+}
+
+.card__image-wrapper {
+  position: relative;
+}
+
+.card__image {
+  inline-size: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: center;
+  border: 2px solid var(--accent-color);
+}
+
+.card__image_type_start {
+  filter: saturate(1.15) contrast(1.05);
+}
+
+.card__image_type_sheet {
+  filter: grayscale(0.8);
+}
+
+.card__image_type_doubt {
+  filter: hue-rotate(25deg) saturate(1.35);
+}
+
+.card__image_type_perfection {
+  filter: sepia(0.5) saturate(1.4);
+}
+
+.card__image_type_people {
+  filter: brightness(0.78) contrast(1.2);
+}
+
+.card__image_type_strategy {
+  filter: invert(0.08) sepia(0.45);
+}
+
+.card__image_type_focus {
+  filter: blur(2px) saturate(0.75);
+}
+
+.card__image_type_finish {
+  filter: brightness(1.12) hue-rotate(330deg);
+}
+
+.card__label {
+  position: absolute;
+  inset-block-start: 25px;
+  inset-inline-end: clamp(10px, 1.736vw, 25px);
+
+  opacity: 0.5;
+  color: var(--accent-color);
+  font-family: var(--accent-font), fantasy;
+  font-size: 14px;
+  line-height: 1;
+  text-transform: uppercase;
+  mix-blend-mode: hard-light;
+
+  text-shadow:
+          -1px 0 var(--label-stroke-color),
+          0 1px var(--label-stroke-color),
+          1px 0 var(--label-stroke-color),
+          0 -1px var(--label-stroke-color);
+}
+
+@supports (
+  (-webkit-text-stroke: 1px var(--label-stroke-color)) or
+  (text-stroke: 1px var(--label-stroke-color))
+) {
+  .card__label {
+    -webkit-text-stroke: 1px var(--label-stroke-color);
+    text-shadow: none;
+  }
+}
+
+.card__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 25px;
+
+  padding: 25px;
+
+  background-color: var(--background-color);
+  border: 2px solid var(--accent-color);
+}
+
+.card__text {
+  inline-size: 100%;
+  font-size: 18px;
+  line-height: 1.16;
+}
+
+.card__buttons {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.card__icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  inline-size: 39px;
+  block-size: 38px;
+
+  padding: 0;
+
+  background-color: transparent;
+  border: 2px solid transparent;
+
+  transition: border-color 0.3s ease;
+}
+
+.card__icon-button:focus {
+  outline: none;
+}
+
+.card__icon-button:focus-visible {
+  border-color: var(--accent-color);
+}
+
+.like-icon {
+  display: block;
+}
+
+.button {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+
+  min-block-size: 38px;
+  padding: 9px 17px;
+
+  color: var(--button-text-color);
+  background-color: var(--background-color);
+  border: 2px solid var(--accent-color);
+
+  font-family: var(--accent-font), fantasy;
+  font-size: 14px;
+  line-height: 1;
+
+  transition: box-shadow 0.3s ease;
+}
+
+.button::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+
+  content: "";
+  background-color: var(--accent-color);
+  transform: translateX(-101%);
+
+  transition: transform 0.5s ease-in-out;
+}
+
+.button:hover::before {
+  transform: translateX(0);
+}
+
+.button:focus {
+  outline: none;
+}
+
+.button:focus-visible {
+  box-shadow: 2px 2px 0 var(--accent-color);
+}
+
+.button__text {
+  position: relative;
+  z-index: 1;
+  mix-blend-mode: difference;
+}
+
+.card__like-button {
+  inline-size: 130px;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+
+  margin: 50px auto 100px;
+}
+
+.save-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  inline-size: clamp(19.125rem, 23.264vw, 20.9375rem);
+  min-block-size: 55px;
+}
+
+.save-button__icon {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+
+  color: var(--button-text-color);
+  mix-blend-mode: difference;
+}
+
+.dialog {
+  inline-size: min(357px, calc(100% - 34px));
+  padding: 30px;
+
+  color: var(--accent-color);
+  background-color: var(--background-color);
+  border: 2px solid var(--accent-color);
+}
+
+.dialog[open] {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.dialog::backdrop {
+  background-color: rgb(0 0 0 / 0.75);
+}
+
+.dialog__content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.dialog__icon {
+  flex-shrink: 0;
+}
+
+.dialog__text {
+  font-family: var(--accent-font), fantasy;
+  font-size: 14px;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.dialog__button {
+  inline-size: 100%;
+}
+
+@media (width <= 375px) {
+  .header {
+    min-block-size: 327px;
+    margin-block-start: 100px;
+  }
+
+  .header__title {
+    font-size: 49px;
+  }
+
+  .header__subtitle {
+    font-size: 14px;
+  }
+
+  .content {
+    margin-block-start: 100px;
+  }
+
+  .card__title {
+    font-size: 18px;
+  }
+
+  .card__label {
+    inset-block-start: 25px;
+    inset-inline-end: 10px;
+  }
+
+  .save-button {
+    flex-direction: column;
+    min-block-size: 84px;
+  }
+
+  .dialog {
+    padding: 30px 40px;
+  }
+
+  .dialog__content {
+    gap: 15px;
+  }
+
+  .dialog__text {
+    font-size: 14px;
+  }
 }
